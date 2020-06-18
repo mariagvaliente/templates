@@ -1,0 +1,44 @@
+  <!-- General error  -->
+<div class="panel panel-danger" ng-if="!success">
+    <div class="panel-heading">
+        <strong>{{(artifact.data || artifact.attachment.name) | fang}}</strong>
+    </div>
+    <div class="panel-body">
+        {{content.errorMessage}}
+    </div>
+</div>
+
+<div class="panel panel-info" ng-if="success">
+  <div class="panel-heading">
+    <!-- Autofocus Hash Report -->
+        Report
+  </div>
+  <div class="panel-body">
+    <div>
+      <dl class="dl-horizontal" ng-if="content.metadata.verdict">
+        <strong>Verdict: </strong>
+        <span class="label" ng-class="{'benign': 'label-success', 'greyware': 'label-warning', 'phising':'label-danger', 'malware':'label-danger'}[content.metadata.verdict]">
+            {{content.metadata.verdict}}
+        </span><br/>
+      </dl>
+      <dl class="dl-horizontal" ng-if="content.metadata.finish_date">
+          <strong>Last seen: </strong> {{content.metadata.finish_date}}<br/>
+      </dl>
+      <dl class="dl-horizontal" ng-if="content.metadata.file_type">
+        <strong>Type: </strong> {{content.metadata.file_type}}<br/>
+      </dl>
+      <dl class="dl-horizontal" ng-if="content.metadata.regions.length > 0">
+        <strong>Regions:</strong><ul><li ng-repeat="reg in ::content.metadata.regions">{{reg}}</li></ul>
+      </dl>
+      <dl class="dl-horizontal" ng-if="content.metadata.md5">
+        <strong>MD5: </strong> {{content.metadata.md5}}<br/>
+      </dl>
+      <dl class="dl-horizontal" ng-if="content.metadata.sha1">
+        <strong>SHA1: </strong> {{content.metadata.sha1}}<br/>
+      </dl>
+      <dl class="dl-horizontal" ng-if="content.metadata.sha256">
+        <strong>SHA256: </strong> {{content.metadata.sha256}}<br/>
+      </dl>
+      <hr>
+    </div>
+  </div>

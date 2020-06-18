@@ -1,0 +1,41 @@
+  <!-- General error  -->
+<div class="panel panel-danger" ng-if="!success">
+  <div class="panel-heading">
+    <strong>{{(artifact.data || artifact.attachment.name) | fang}}</strong>
+  </div>
+  <div class="panel-body">
+    {{results.errorMessage}}
+  </div>
+</div>
+
+<div class="panel panel-info" ng-if="success">
+  <div class="panel-heading">
+    <!-- Autofocus IOC Report -->
+        Report
+  </div>
+  <div class="panel-body">
+    <div>
+      <dl class="dl-horizontal" ng-if="content.metadata.latestPanVerdicts.WF_SAMPLE">
+        <strong>Verdict: </strong>
+        <span class="label" ng-class="{'BENIGN': 'label-success', 'GREYWARE': 'label-warning', 'PHISING':'label-danger', 'MALWARE':'label-danger', 'C2':'label-danger'}[content.metadata.latestPanVerdicts.WF_SAMPLE]">
+            {{content.metadata.latestPanVerdicts.WF_SAMPLE}}
+        </span><br/>
+      </dl>
+      <dl class="dl-horizontal" ng-if="content.metadata.latestPanVerdicts.PAN_DB">
+        <strong>Verdict: </strong>
+        <span class="label" ng-class="{'BENIGN': 'label-success', 'GREYWARE': 'label-warning', 'PHISING':'label-danger', 'MALWARE':'label-danger', 'C2':'label-danger'}[content.metadata.latestPanVerdicts.PAN_DB]">
+            {{content.metadata.latestPanVerdicts.PAN_DB}}
+        </span><br/>
+      </dl>
+      <dl class="dl-horizontal" ng-if="content.metadata.lastSeenTsGlobal">
+          <strong>Last seen timestamp: </strong> {{content.metadata.lastSeenTsGlobal}}<br/>
+      </dl>
+      <dl class="dl-horizontal" ng-if="content.metadata.indicatorType">
+        <strong>Type: </strong> {{content.metadata.indicatorType}}<br/>
+      </dl>
+      <dl class="dl-horizontal" ng-if="content.tags.length > 0">
+        <strong>Tagged as:</strong><ul><li ng-repeat="tag in ::content.tags">{{tag.tag_name}}</li></ul>
+      </dl>
+      <hr>
+    </div>
+  </div>
