@@ -1,0 +1,93 @@
+<div class="panel panel-info" ng-if="success">
+    <div class="panel-heading">
+        GreyNoise results for <strong>{{artifact.data}}</strong>
+    </div>
+
+    <div class="panel-body">
+        <table class="table" ng-if="content.data">
+            <thead>
+                <th>Classification</th>
+                <th>Last seen</th>
+                <th>Category</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>Organization</th>
+                <th>rDNS</th>
+                <th>ASN</th>
+                <th>OS</th>
+            </thead>
+            <tbody ng-repeat="record in content.data | orderBy:'-last_seen'">
+                <tr>
+                    <td>{{record.classification}}</td>
+                    <td>{{record.last_seen}}</td>
+                    <td>{{record.metadata.category}}</td>
+                    <td>{{record.metadata.country}}</td>
+                    <td>{{record.metadata.city}}</td>
+                    <td>{{record.metadata.organization}}</td>
+                    <td>{{record.metadata.rdns}}</td>
+                    <td>{{record.metadata.asn}}</td>
+                    <td>{{record.metadata.os}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <dl class="dl-horizontal" ng-if="record.tags.length > 0">
+                            <strong>Tags:</strong>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-tags" aria-expanded="false" aria-controls="collapse-tags">
+                                Show/hide
+                            </button>
+                            <br />
+                            <div class="collapse" id="collapse-tags">
+                                <span class="tags-list flexwrap" ng-repeat="tag in ::record.tags ">
+                                    {{tag}}
+                                </span>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-tags" aria-expanded="false" aria-controls="collapse-tags">
+                                    Show/hide
+                                </button>
+                            </div>
+                        </dl>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <dl class="dl-horizontal" ng-if="record.raw_data.scan.length > 0">
+                            <strong>Scans:</strong>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-scans" aria-expanded="false" aria-controls="collapse-scans">
+                                Show/hide
+                            </button>
+                            <br />
+                            <div class="collapse" id="collapse-scans">
+                                <span class="scan-list flexwrap" ng-repeat="scan in ::record.raw_data.scan ">
+                                    {{scan.port}} / {{scan.protocol}}
+                                </span>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-scans" aria-expanded="false" aria-controls="collapse-scans">
+                                    Show/hide
+                                </button>
+                            </div>
+                        </dl>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <dl class="dl-horizontal" ng-if="record.cve.length > 0">
+                            <strong>CVEs:</strong>
+                            <span class="cve-list flexwrap" ng-repeat="cve in ::record.cve ">
+                                {{cve}}
+                            </span>
+                        </dl>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p ng-if="!content.data">No records found for {{artifact.data}}.</p>
+    </div>
+</div>
+
+<!-- General error -->
+<div class="panel panel-danger" ng-if="!success">
+    <div class="panel-heading">
+        <strong>{{(artifact.data || artifact.attachment.name) | fang}}</strong>
+    </div>
+    <div class="panel-body">
+        {{content.errorMessage}}
+    </div>
+</div>
