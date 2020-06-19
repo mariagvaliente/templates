@@ -1,2 +1,2 @@
 # My templates for cortex-analyzers
-Templates for autofocus analyzer and hybridanalysis analyzer
+Templates for autofocus, hybridanalysis and greynoise analyzers
